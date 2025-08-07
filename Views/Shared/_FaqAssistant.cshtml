@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null; // This is a partial, not a full view
+}
+
+<!-- FAQ Assistant Modal -->
+<div class="modal fade" id="faqAssistantModal" tabindex="-1" aria-labelledby="faqAssistantModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content faq-glassmorphic border-0 shadow-lg text-light">
+
+            <!-- Header -->
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-info fw-semibold">
+                    <i class="fa-solid fa-circle-question me-2"></i>FAQ Assistant
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Chat Area -->
+                <div id="chatBox" class="chat-box bg-dark p-3 rounded overflow-auto" style="height: 300px;">
+                    <div id="welcomeMessage" class="text-center text-light mb-3">
+                        <h5 class="fw-bold">👋 Hello!</h5>
+                        <p>Welcome to <span class="text-info">Budget Buddy</span>. Ask me anything!</p>
+                    </div>
+                </div>
+                    <!-- Chat messages injected here via JavaScript -->
+            
+                <!-- Predefined Questions -->
+<div class="predefined-questions mt-3">
+    <label class="text-info fw-bold mb-2">
+        <i class="fa-solid fa-lightbulb me-1"></i> Try asking:
+    </label>
+    <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary btn-sm predefined-btn">How to add a new transaction?</button>
+        <button class="btn btn-outline-secondary btn-sm predefined-btn">How to view monthly report?</button>
+        <button class="btn btn-outline-secondary btn-sm predefined-btn">How to export to PDF?</button>
+        <button class="btn btn-outline-secondary btn-sm predefined-btn">How to manage categories?</button>
+        <button class="btn btn-outline-secondary btn-sm predefined-btn">How to reset my password?</button>
+    </div>
+</div>
+
+                <!-- Input -->
+                <div class="input-group mt-3">
+                    <input type="text" id="faqQuestionInput" class="form-control bg-dark text-light border-secondary rounded-start" placeholder="Ask your question...">
+                    <button class="btn btn-outline-info rounded-end" id="sendFaqQuestion">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

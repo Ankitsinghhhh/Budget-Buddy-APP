@@ -1,0 +1,65 @@
+﻿﻿@using Budget_Buddy_App.ViewModels;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+<link href="~/css/login.css rel="stylesheet" asp-append-version="true" />
+
+
+<div class="account-container">
+    <div class="account-box">
+        <h1 class="text-center mb-5"> 𝗨𝗦𝗘𝗥 𝗟𝗢𝗚𝗜𝗡 </h1>
+
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                    Forgot password?
+                </a>
+            </div>
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    @Html.DisplayNameFor(a => a.RememberMe)
+                </label>
+            </div>
+            <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+            <p class="text-center mt-2">
+                Don't have an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a>
+            </p>
+            <div class="text-center">
+@*                <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3">Back</a>
+ *@            </div>
+        </form>
+    </div>
+    <div class="info-section">
+        <h1> Welcome to Budget Buddy 🤖</h1>
+        <ul>
+            <li>✅ Track your expenses easily</li>
+            <li>📊 Visualize your spending habits with insights</li>
+            <li>📁 Export detailed reports as PDF</li>
+            <li>🔐 Keep your data secure & organized</li>
+            <li>🤖 Get help anytime with our built-in Assistant</li>
+            <li>❓ Explore answers quickly with integrated FAQ support</li>
+            <li>💡 Learn smart budgeting tips to save more!</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}

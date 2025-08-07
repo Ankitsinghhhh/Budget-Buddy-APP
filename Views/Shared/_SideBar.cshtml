@@ -1,0 +1,219 @@
+﻿@await Html.PartialAsync("_FaqAssistant")
+
+@{
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "General",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Dashboard",
+        url = "/",
+        iconCss = "fa-solid fa-box",
+    });
+    menuItems.Add(new
+    {
+        text = "Categories",
+        url = "/Category",
+        iconCss = "fa-solid fa-folder-closed",
+    });
+    menuItems.Add(new
+    {
+        text = "Transactions",
+        iconCss = "fa-solid fa-arrow-right-arrow-left",
+        url = "/Transaction"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Extras",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Reports",
+        iconCss = "fa-solid fa-chart-simple",
+        url = "#",
+        id = "reportExportBtn"
+    });
+    menuItems.Add(new
+    {
+        text = "Settings",
+        iconCss = "fa-solid fa-gear",
+        url = "#"
+    });
+    menuItems.Add(new
+    {
+        text = "FAQ Assistant",
+        iconCss = "fa-solid fa-circle-question",
+        url = "#",
+        id = "faqAssistantBtn"  // Important for JavaScript targeting
+    });
+
+    menuItems.Add(new
+    {
+        text = "Logout",
+        iconCss = "fa-solid fa-right-from-bracket",
+        url = "/Account/Login"
+    });
+}
+
+
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px"
+             target=".dock-target" enableGestures="false">
+
+    <e-content-template>
+
+        <div class="logo-wrapper">
+            <div class="app-logo">
+                <img src="~/logo.png" />
+            </div>
+            <div class="w-100"></div>
+            <i id="sidebar-toggler" class="fa-solid"></i>
+        </div>
+
+        <div class="profile-wrapper">
+            <img class="profile-pic" src="@Url.Content("~/wallet photo me.jpg")" alt="Profile" width="100" height="100" />
+            <div class="titles d-flex flex-column ps-3">
+                <h6 class="mb-0">Wallet App</h6>
+                <span class="text-muted">User Wallet</span>
+            </div>
+        </div>
+
+        <ejs-menu id="menu"
+                  items="menuItems"
+                  orientation="Vertical"
+                  hamburgerMode></ejs-menu>
+    </e-content-template>
+</ejs-sidebar>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // === Sidebar Toggle ===
+        const dockBar = document.getElementById('sidebar')?.ej2_instances?.[0];
+        const toggleBtn = document.getElementById('sidebar-toggler');
+        if (toggleBtn && dockBar) {
+            toggleBtn.addEventListener('click', () => dockBar.toggle());
+        }
+
+        // === Chat Elements
+        const sendBtn = document.getElementById('sendFaqQuestion');
+        const inputBox = document.getElementById('faqQuestionInput');
+        const chatBox = document.getElementById('chatBox');
+
+        // === Function to append messages
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `mb-2 ${sender === 'user' ? 'text-end' : 'text-start'}`;
+            msgDiv.innerHTML = `
+                <span class="d-inline-block px-3 py-2 rounded-pill ${sender === 'user' ? 'bg-info text-dark' : 'bg-secondary text-light'}">
+                    ${text}
+                </span>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+            // === PDF Export ===
+    const reportBtn = document.querySelector('#reportExportBtn');
+    if (reportBtn) {
+        reportBtn.addEventListener('click', async function (e) {
+            e.preventDefault();
+            try {
+                const response = await fetch('/Transaction/ExportToPdf', { method: 'POST' });
+                if (!response.ok) throw new Error("PDF export failed");
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "Report.pdf";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (error) {
+                alert("Error exporting PDF: " + error.message);
+            }
+        });
+    }
+
+
+        // === Function to simulate bot reply
+            function simulateBotReply(question) {
+        const lower = question.toLowerCase();
+        let reply = '';
+
+        if (["hi", "hello", "hey", "hii", "helo"].includes(lower)) {
+            reply = "Welcome to Budget Buddy! How can I help you today?";
+        } else {
+            switch (lower) {
+                case "how to add a new transaction?":
+                    reply = "Click on 'Add Transaction' and fill the required details like amount, category, and date.";
+                    break;
+                case "how to view monthly report?":
+                    reply = "Go to Dashboard and select the month from the dropdown to view reports.";
+                    break;
+                case "how to export to pdf?":
+                    reply = "Click on 'Export to PDF' in the Dashboard to download your report.";
+                    break;
+                case "how to manage categories?":
+                    reply = "Click on 'Categories' in the sidebar to add, edit or delete categories.";
+                    break;
+                case "how to reset my password?":
+                    reply = "To reset your password, please logout first. Then on the login page, click on 'Forgot Password' and follow the steps.";
+                    break;
+                default:
+                    reply = "Sorry, I didn’t understand that. Please try asking in a different way.";
+            }
+        }
+
+        appendMessage(reply, 'bot');
+    }
+
+
+        // === Function to send message (used by both button and suggestions)
+        function sendMessage() {
+            const question = inputBox.value.trim();
+            if (question) {
+                appendMessage(question, 'user');
+                simulateBotReply(question);
+                inputBox.value = '';
+            }
+        }
+
+        // === Send Button Click + Enter Key
+        if (sendBtn && inputBox && chatBox) {
+            sendBtn.addEventListener('click', sendMessage);
+            inputBox.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // === FAQ Assistant Modal Open
+        const faqBtn = document.querySelector('#faqAssistantBtn');
+        if (faqBtn) {
+            faqBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const modalEl = document.getElementById('faqAssistantModal');
+                if (modalEl) {
+                    const modal = new bootstrap.Modal(modalEl);
+                    modal.show();
+                }
+            });
+        }
+
+        // === Predefined Suggestions + Welcome Clicks
+        const suggestions = document.querySelectorAll('.predefined-btn');
+        suggestions.forEach((badge) => {
+            badge.addEventListener('click', function () {
+                inputBox.value = this.textContent.trim();
+                sendMessage();
+            });
+        });
+    });
+</script>
