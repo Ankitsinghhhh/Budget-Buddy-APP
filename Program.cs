@@ -35,7 +35,7 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 builder.Services.AddScoped<IExportPdfService, ExportPdfService>();
 
 //  Syncfusion License
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXdecXRRR2JcWUJ/XENWYU0=");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8 / V1NAaF5cWWJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXded3VVRWZdVUVwWUNWYU0 =");
 
 //  QuestPDF License
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
