@@ -68,7 +68,7 @@ It includes advanced features such as **PDF export**, **authentication system**,
 ### category	
 ![Category](wwwroot/images/category.png)
  
- ### Contact 
+ ### Contact info
  Created by Ankit Singh 
  Feel free to connect for collaboration or queries
  email: ankit2ja@gmail.com

@@ -3,6 +3,15 @@ wwwroot\css\site.css
 wwwroot\favicon-16x16.png
 wwwroot\favicon-32x32.png
 wwwroot\favicon.ico
+wwwroot\images\category.png
+wwwroot\images\ChangePassword.png
+wwwroot\images\Dashboard.png
+wwwroot\images\faqassistant.png
+wwwroot\images\Login.png
+wwwroot\images\pdf-export.png
+wwwroot\images\Register.png
+wwwroot\images\transaction.png
+wwwroot\images\VerifyEmail.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
