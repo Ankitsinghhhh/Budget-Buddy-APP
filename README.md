@@ -60,7 +60,7 @@ It includes advanced features such as **PDF export**, **authentication system**,
 ![PDF Export](wwwroot/images/pdf-export.png)
 
 ### FAQ Assistant
-![FAQ Assistant](wwwroot/images/faq-assistant.png)
+![FAQ Assistant](wwwroot/images/faqassistant.png)
 
 ### transaction
 ![Transaction](wwwroot/images/transaction.png)
